@@ -6,10 +6,18 @@ import (
 
 func main() {
 	args := os.Args
-	if len(args) < 2 || args[1] == "--help" {
+	processArgs(args)
+}
+
+func processArgs(args []string) {
+	switch {
+	case len(args) < 2 || args[1] == "--help":
 		PrintHelp()
-		return
-	} else if len(args) == 2 {
+	case len(args) == 2:
 		PrintCommandInfo(args[1])
+		CreateConfigDirectory()
+	default:
+		CreateConfigDirectory()
 	}
+
 }
