@@ -6,6 +6,20 @@ import (
 	"path/filepath"
 )
 
+func WriteToFile(filePath, content string) {
+	f, err := os.Create(filePath)
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+
+	_, err = f.WriteString(content)
+	if err != nil {
+		panic(err)
+	}
+
+}
+
 func CreateConfigDirectory() {
 	if err := ensureDir("./.tinygit"); err != nil {
 		fmt.Println("Directory creation failed. Err: ", err.Error())
