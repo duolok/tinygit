@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 func WriteToFile(filePath, content string) {
@@ -19,6 +20,44 @@ func WriteToFile(filePath, content string) {
 	}
 
 }
+
+func GetTrackedFiles() ([]string, error) {
+	data, err := os.ReadFile(filepath.Join(mainVCSPath, "index"))
+	if err != nil {
+		return nil, err
+	}
+
+	content := string(data)
+	files := strings.Split(content, "\n")
+
+	var result []string
+	for _, file := range files {
+		result = append(result, file)
+	}
+
+	return result, nil
+}
+
+func ShowTrackedFiles(files []string) {
+	for _, el := range files {
+		fmt.Println("-", el)
+	}
+}
+
+func RemoveDuplicates(files []string) []string {
+	seen := make(map[string]bool)
+
+	var result []string
+	for _, file := range files {
+		if !seen[file] {
+			seen[file] = true
+			result = append(result, file)
+		}
+	}
+
+	return result
+}
+
 
 func CreateConfigDirectory() {
 	if err := ensureDir(mainVCSPath); err != nil {
