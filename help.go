@@ -3,13 +3,14 @@ package main
 import "fmt"
 
 func PrintHelp() {
-	fmt.Println(`[USAGE]   | All TinyGit commands
-                --config   | sets or outputs the name of a commit author
-                --help     | prints the help page
-                --add      | adds a file to the list of tracked files or outputs the list
-                --log      | shows all commits
-                --commit   | saves the file changes and the author name
-                --checkout | allows you to switch between commits and restore previous file state`)
+	fmt.Println(`[USAGE]        | All TinyGit commands
+                --config        | sets or outputs the name of a commit author
+                --help          | prints the help page
+                --add           | adds a file to the list of tracked files or outputs the list
+                --log           | shows all commits
+                --commit        | saves the file changes and the author name
+                --checkout      | allows you to switch between commits and restore previous file state
+		--tracked-files | shows all currently tracked files`)
 }
 
 func PrintCommandInfo(command string) {
