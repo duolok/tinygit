@@ -1,7 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"os"
+)
 
 func main() {
-    fmt.Println("Hello world!")
+	args := os.Args
+	if len(args) < 2 || args[1] == "--help" {
+		PrintHelp()
+		return
+	} else if len(args) == 2 {
+		PrintCommandInfo(args[1])
+	}
 }
