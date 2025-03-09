@@ -7,6 +7,7 @@ const (
 	HELP     = "--help"
 	ADD      = "--add"
 	LOG      = "--log"
+	TRACKED  = "--tracked-files"
 )
 
 const configPath = "./.tinygit/config"
