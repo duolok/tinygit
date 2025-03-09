@@ -3,6 +3,9 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
+	"slices"
+	"strings"
 )
 
 type Command struct {
@@ -24,7 +27,7 @@ func processArgs(args []string) {
 	case len(args) > 2:
 		gitArgs := Command{
 			commandName: args[1],
-			values:  args[2:],
+			values:      args[2:],
 		}
 		CreateConfigDirectory()
 		handleCommand(gitArgs)
@@ -38,7 +41,7 @@ func handleCommand(command Command) {
 	case CONFIG:
 		handleConfig(command.values)
 	case ADD:
-		handleAdd()
+		handleAdd(command.values)
 	default:
 		return
 	}
@@ -52,4 +55,31 @@ func handleConfig(values []string) {
 	WriteToFile(configPath, values[0])
 }
 
-func handleAdd() {}
+func handleAdd(values []string) {
+	files, err := GetTrackedFiles()
+	if err != nil {
+		panic(err)
+	}
+
+	if len(values) == 0 {
+		ShowTrackedFiles(files)
+		return
+	}
+
+	cleanFiles := RemoveDuplicates(files)
+	for _, val := range values {
+		if _, err := os.Stat(val); os.IsNotExist(err) {
+			fmt.Printf("WARNING: %s does not exist in the current directory\n", val)
+			continue
+		}
+
+		if slices.Contains(cleanFiles, val) {
+			continue
+		}
+
+		cleanFiles = append(cleanFiles, val)
+	}
+
+	content := strings.Join(cleanFiles, "\n")
+	WriteToFile(filepath.Join(mainVCSPath, "index"), content)
+}
