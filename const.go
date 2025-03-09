@@ -9,3 +9,5 @@ const (
 	LOG      = "--log"
 )
 
+const configPath = "./.tinygit/config"
+const indexPath = "./.tinygit/index"
