@@ -21,7 +21,7 @@ func WriteToFile(filePath, content string) {
 }
 
 func CreateConfigDirectory() {
-	if err := ensureDir("./.tinygit"); err != nil {
+	if err := ensureDir(mainVCSPath); err != nil {
 		fmt.Println("Directory creation failed. Err: ", err.Error())
 		os.Exit(1)
 	}
@@ -47,7 +47,7 @@ func ensureDir(dirName string) error {
 }
 
 func ensureFile(fileName string) error {
-	fullPath := filepath.Join("./.tinygit/", fileName)
+	fullPath := filepath.Join(mainVCSPath, fileName)
 
 	_, err := os.Stat(fullPath)
 	if err == nil {
