@@ -39,7 +39,7 @@ func GetTrackedFiles() ([]string, error) {
 }
 
 func ShowTrackedFiles(files []string) {
-	for _, el := range files {
+	for _, el := range files[1:] {
 		fmt.Println("-", el)
 	}
 }
