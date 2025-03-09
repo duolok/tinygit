@@ -22,8 +22,10 @@ func processArgs(args []string) {
 	switch {
 	case len(args) < 2 || args[1] == HELP:
 		PrintHelp()
-	case len(args) == 2:
+	case len(args) == 2 && args[1] != TRACKED:
 		PrintCommandInfo(args[1])
+	case args[1] == TRACKED:
+		printTrackedFiles()
 	case len(args) > 2:
 		gitArgs := Command{
 			commandName: args[1],
@@ -42,6 +44,8 @@ func handleCommand(command Command) {
 		handleConfig(command.values)
 	case ADD:
 		handleAdd(command.values)
+	case TRACKED:
+		printTrackedFiles()
 	default:
 		return
 	}
@@ -53,6 +57,16 @@ func handleConfig(values []string) {
 		return
 	}
 	WriteToFile(configPath, values[0])
+}
+
+func printTrackedFiles() {
+	files, err := GetTrackedFiles()
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Currently tracked files:")
+	ShowTrackedFiles(files)
 }
 
 func handleAdd(values []string) {
