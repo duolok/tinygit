@@ -73,7 +73,7 @@ func CreateConfigDirectory() {
 		os.Exit(1)
 	}
 
-	if err := ensureDir(path.Join(mainVCSPath, "commits")); err != nil {
+	if err := ensureDir(filepath.Join(mainVCSPath, "commits")); err != nil {
 		fmt.Println("Directory creation failed. Err: ", err.Error())
 		os.Exit(1)
 	}
