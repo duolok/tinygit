@@ -73,7 +73,6 @@ func CreateCommit(message string) error {
 		return fmt.Errorf("ERROR: failed to update commit log: %v", err)
 	}
 
-	fmt.Printf("Commited as: %s\n", &commitID)
 	if len(changedFiles) > 0 {
 		fmt.Printf("Files changed: %d\n", len(changedFiles))
 	}
