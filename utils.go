@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path"
 	"path/filepath"
 	"strings"
 )
@@ -61,6 +62,11 @@ func RemoveDuplicates(files []string) []string {
 
 func CreateConfigDirectory() {
 	if err := ensureDir(mainVCSPath); err != nil {
+		fmt.Println("Directory creation failed. Err: ", err.Error())
+		os.Exit(1)
+	}
+
+	if err := ensureDir(path.Join(mainVCSPath, "commits")); err != nil {
 		fmt.Println("Directory creation failed. Err: ", err.Error())
 		os.Exit(1)
 	}
