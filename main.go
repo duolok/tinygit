@@ -65,7 +65,6 @@ func printTrackedFiles() {
 		panic(err)
 	}
 
-	fmt.Println("Currently tracked files:")
 	ShowTrackedFiles(files)
 }
 
