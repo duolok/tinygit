@@ -41,10 +41,12 @@ func handleCommand(command Command) {
 		handleConfig(command.values)
 	case ADD:
 		handleAdd(command.values)
+	case COMMIT:
+		handleCommit(command.values)
 	case TRACKED:
-		printTrackedFiles()
+		handleTrackedFiles()
 	case LOG:
-		LogAllCommits()
+		handleLog()
 	default:
 		return
 	}
@@ -56,15 +58,6 @@ func handleConfig(values []string) {
 		return
 	}
 	WriteToFile(configPath, values[0])
-}
-
-func printTrackedFiles() {
-	files, err := GetTrackedFiles()
-	if err != nil {
-		panic(err)
-	}
-
-	ShowTrackedFiles(files)
 }
 
 func handleAdd(values []string) {
@@ -94,4 +87,29 @@ func handleAdd(values []string) {
 
 	content := strings.Join(cleanFiles, "\n")
 	WriteToFile(filepath.Join(mainVCSPath, "index"), content)
+}
+
+func handleCommit(values []string) {
+	if len(values) != 2 {
+		fmt.Println("ERROR: commit message and file required")
+		return
+	}
+	message := values[0]
+
+	err := CreateCommit(message)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
+
+func handleLog() {
+	LogAllCommits()
+}
+
+func handleTrackedFiles() {
+	files, err := GetTrackedFiles()
+	if err != nil {
+		panic(err)
+	}
+	ShowTrackedFiles(files)
 }
