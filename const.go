@@ -12,4 +12,5 @@ const (
 
 const configPath = "./.tinygit/config"
 const indexPath = "./.tinygit/index"
+const commitPath = "./.tinygit/commits/"
 const mainVCSPath = "./.tinygit/"
