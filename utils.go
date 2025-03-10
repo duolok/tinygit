@@ -3,23 +3,30 @@ package main
 import (
 	"fmt"
 	"os"
-	"path"
 	"path/filepath"
 	"strings"
 )
 
-func WriteToFile(filePath, content string) {
+func WriteToFile(filePath, content string) error {
 	f, err := os.Create(filePath)
 	if err != nil {
-		panic(err)
+		return err
 	}
 	defer f.Close()
 
 	_, err = f.WriteString(content)
 	if err != nil {
-		panic(err)
+		return err
 	}
+	return nil
+}
 
+func ReadFromFile(filePath string) (string, error) {
+	data, err := os.ReadFile(configPath)
+	if err != nil {
+		return "", err
+	}
+	return string(data), nil
 }
 
 func GetTrackedFiles() ([]string, error) {
