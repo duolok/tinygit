@@ -49,6 +49,8 @@ func handleCommand(command Command) {
 		handleLog()
 	case SHOW_COMMIT:
 		handleShowCommit(command.values)
+	case CHECKOUT:
+		handleCheckout(command.values)
 	default:
 		return
 	}
@@ -112,6 +114,19 @@ func handleShowCommit(values []string) {
 
 	commitID := values[0]
 	err := DisplayCommitDetails(commitID)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
+
+func handleCheckout(values []string) {
+	if len(values) != 1 {
+		fmt.Println("ERROR: commit ID required")
+		return
+	}
+
+	commitID := values[0]
+	err := Checkout(commitID)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
