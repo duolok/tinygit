@@ -45,8 +45,7 @@ func LogAllCommits() {
 		if len(parts) >= 5 {
 			fmt.Printf("Changed files :%s \n", parts[4])
 		}
-
-		fmt.Printf("\n		%s\n\n", parts[3])
+		fmt.Printf("Commit message: %s\n\n", parts[3])
 	}
 
 	if !hasCommits {
