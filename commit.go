@@ -134,7 +134,7 @@ func createCommitMetadata(commitDir, author, message string, changedFiles []stri
 	sb.WriteString(fmt.Sprintf("changed_files: %d\n", len(changedFiles)))
 
 	if len(changedFiles) > 0 {
-		sb.WriteString("files: \n")
+		sb.WriteString("names_of_changed_files: \n")
 		for _, file := range changedFiles {
 			sb.WriteString(fmt.Sprintf(" - %s \n", file))
 		}
