@@ -10,7 +10,7 @@ func PrintHelp() {
                 --log              | shows all commits
                 --commit           | saves the file changes and the author name
                 --checkout         | allows you to switch between commits and restore previous file state
-                --show-commit      | allows you to switch between commits and restore previous file state
+                --show-commit      | shows metadata of a specific commit 
 		--tracked-files | shows all currently tracked files`)
 }
 
@@ -31,6 +31,9 @@ func PrintCommandInfo(command string) {
 	case CHECKOUT:
 		fmt.Println(`--checkout | allows you to switch between commits and restore previous file state
                 [USAGE] ./tinygit --checkout {COMMIT_HASH}`)
+	case SHOW_COMMIT:
+		fmt.Println(`--show-commit | shows metadata of a specific commit
+                [USAGE] ./tinygit --show-commit {COMMIT_HASH}`)
 	case HELP:
 		PrintHelp()
 	default:
