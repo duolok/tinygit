@@ -38,14 +38,14 @@ func LogAllCommits() {
 		}
 
 		hasCommits = true
-		fmt.Printf("commit %s\n", parts[0])
-		fmt.Printf("Author: %s\n", parts[1])
-		fmt.Printf("Date: %s\n", parts[2])
+		fmt.Printf("%sCommit%s: %s\n", MagentaColor, ResetColor, parts[0])
+		fmt.Printf("%sAuthor%s: %s\n", MagentaColor, ResetColor, parts[1])
+		fmt.Printf("%sDate%s: %s\n", MagentaColor, ResetColor, parts[2])
 
 		if len(parts) >= 5 {
-			fmt.Printf("Changed files :%s \n", parts[4])
+			fmt.Printf("%sChanged files%s:%s \n", MagentaColor, ResetColor, parts[4])
 		}
-		fmt.Printf("Commit message: %s\n\n", parts[3])
+		fmt.Printf("%sCommit message%s: %s\n\n", MagentaColor, ResetColor, parts[3])
 	}
 
 	if !hasCommits {
@@ -66,11 +66,11 @@ func DisplayCommitDetails(commitID string) error {
 		return fmt.Errorf("ERROR: failed to read commit metadata: %v", err)
 	}
 	
-	fmt.Printf("Commit: %s\n\n", commitID)
-	fmt.Println("Metadata:")
+	fmt.Printf("%s==Commit==%s: %s\n\n",BlueColor, ResetColor, commitID)
+	fmt.Printf("%s==Metadata==%s\n:", YellowColor, ResetColor)
 	fmt.Println(metadata)
 	
-	fmt.Println("\nFiles in commit:")
+	fmt.Printf("%sFiles in commit%s:\n", GreenColor, ResetColor)
 	walkErr := filepath.Walk(commitDir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
