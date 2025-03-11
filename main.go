@@ -90,8 +90,8 @@ func handleAdd(values []string) {
 }
 
 func handleCommit(values []string) {
-	if len(values) != 2 {
-		fmt.Println("ERROR: commit message and file required")
+	if len(values) != 1 {
+		fmt.Println("ERROR: commit message required")
 		return
 	}
 	message := values[0]
