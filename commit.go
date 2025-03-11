@@ -34,6 +34,9 @@ func CreateCommit(message string) error {
 
 	changedFiles := []string{}
 	for _, file := range trackedFiles {
+		if file == "" {
+			continue
+		}
 		changed, err := hasFileChanged(file, lastCommitID)
 		if err != nil {
 			fmt.Printf("WARNING: could not check if file changed: %s - %v\n", file, err)
@@ -95,9 +98,6 @@ func hasFileChanged(filePath string, lastCommitID string) (bool, error) {
 	}
 
 	lastCommitFilePath := filepath.Join(mainVCSPath, "commits", lastCommitID, filePath)
-	if _, err := os.Stat(lastCommitID); os.IsNotExist(err) {
-		return true, nil
-	}
 
 	previousHash, err := calculateFileHash(lastCommitFilePath)
 	if err != nil {
@@ -150,13 +150,13 @@ func createCommitMetadata(commitDir, author, message string, changedFiles []stri
 
 func saveTrackedFiles(commitDir string, trackedFiles []string) error {
 	for _, file := range trackedFiles {
-		content, err := ReadFromFile(file)
-		if err != nil {
-			fmt.Printf("WARNING: could not read from file %s - %v\n", file, err)
+		if file == "" {
 			continue
 		}
 
-		if content == "" {
+		content, err := ReadFromFile(file)
+		if err != nil {
+			fmt.Printf("WARNING: could not read from file %s - %v\n", file, err)
 			continue
 		}
 
