@@ -47,6 +47,8 @@ func handleCommand(command Command) {
 		handleTrackedFiles()
 	case LOG:
 		handleLog()
+	case SHOW_COMMIT:
+		handleShowCommit(command.values)
 	default:
 		return
 	}
@@ -97,6 +99,19 @@ func handleCommit(values []string) {
 	message := values[0]
 
 	err := CreateCommit(message)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+}
+
+func handleShowCommit(values []string) {
+	if len(values) != 1 {
+		fmt.Println("ERROR: commit ID required")
+		return
+	}
+
+	commitID := values[0]
+	err := DisplayCommitDetails(commitID)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
