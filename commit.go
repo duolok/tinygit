@@ -81,6 +81,10 @@ func CreateCommit(message string) error {
 }
 
 func hasFileChanged(filePath string, lastCommitID string) (bool, error) {
+	if filePath == "" {
+		return true, nil
+	}
+
 	currentHash, err := calculateFileHash(filePath)
 	if err != nil {
 		return false, fmt.Errorf("Failed to calculate hash for current file: %v", err)
@@ -149,6 +153,10 @@ func saveTrackedFiles(commitDir string, trackedFiles []string) error {
 		content, err := ReadFromFile(file)
 		if err != nil {
 			fmt.Printf("WARNING: could not read from file %s - %v\n", file, err)
+			continue
+		}
+
+		if content == "" {
 			continue
 		}
 
