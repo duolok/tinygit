@@ -22,7 +22,7 @@ func WriteToFile(filePath, content string) error {
 }
 
 func ReadFromFile(filePath string) (string, error) {
-	data, err := os.ReadFile(configPath)
+	data, err := os.ReadFile(filePath)
 	if err != nil {
 		return "", err
 	}
