@@ -20,8 +20,8 @@ chmod +x tinygit
 
 | Command | Description |
 |---------|-------------|
-| `--config {NAME}` | Set or display the author name for commits |
-| `--add {FILE_NAME}` | Track a file or display currently tracked files |
+| `--config {NAME}` | Set the author name for commits |
+| `--add {FILE_NAME}` | Track a file |
 | `--commit {MESSAGE}` | Save changes to tracked files with a commit message |
 | `--log` | Display all commits |
 | `--checkout {COMMIT_HASH}` | Switch to a specific commit |
